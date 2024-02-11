@@ -27,8 +27,23 @@ type Issue struct {
 }
 
 type Data struct {
-	Date       string
-	LastXDays  int
-	IssueCount int
-	Issues     []Issue
+	Date             string
+	GitlabUsername   string
+	LastXDays        int
+	IssueCount       int
+	Issues           []Issue
+	ApprovedMRsCount int
+	ApprovedMRs      []MergeRequest
+	MergedMRsCount   int
+	MergedMRs        []MergeRequest
+}
+
+type MergeRequest struct {
+	Title       string
+	Description string
+	Status      string
+	URL         string
+	MergedBy    string
+	MergedAt    string
+	UpdatedAt   string
 }
