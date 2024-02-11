@@ -11,10 +11,9 @@ import (
 )
 
 var (
-	log           = zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.DateTime}).With().Timestamp().Logger()
-	versionString = "development"
-	buildDate     string
-	buildCommit   string
+	log                    = zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.DateTime}).With().Timestamp().Logger()
+	versionString          = "development"
+	buildDate, buildCommit string
 )
 
 func exitWithError(msg string, err error) {

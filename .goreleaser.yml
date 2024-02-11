@@ -7,7 +7,7 @@ builds:
     binary: grfd
     env:
       - CGO_ENABLED=0
-    ldflags: -s -w -X github.com/pehlicd/grfd/cmd.grfd.versionString={{ .Tag }} -X github.com/pehlicd/grfd/cmd.grfd.buildDate={{ .Date }} -X github.com/pehlicd/grfd/cmd.grfd.buildCommit={{ .Commit }}
+    ldflags: -s -w -X main.versionString={{ .Tag }} -X main.buildDate={{ .Date }} -X main.buildCommit={{ .Commit }}
     goos:
       - linux
       - darwin
