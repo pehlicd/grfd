@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/rs/zerolog"
 	"grfd/internal"
 	"os"
@@ -9,7 +10,12 @@ import (
 	"time"
 )
 
-var log = zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.DateTime}).With().Timestamp().Logger()
+var (
+	log           = zerolog.New(zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.DateTime}).With().Timestamp().Logger()
+	versionString = "development"
+	buildDate     string
+	buildCommit   string
+)
 
 func exitWithError(msg string, err error) {
 	log.Error().Msgf("%s: %v", msg, err)
@@ -26,8 +32,16 @@ func main() {
 	flag.StringVar(&cfg.OutputDir, "output-dir", "./", "Output directory. Default is current directory.")
 	flag.BoolVar(&cfg.Insecure, "insecure", false, "Insecure mode to access GitLab.")
 	flag.BoolVar(&cfg.Verbose, "verbose", false, "Verbose mode.")
+	flag.Bool("version", false, "Print version and exit.")
 
 	flag.Parse()
+
+	if flag.Lookup("version").Value.String() == "true" {
+		fmt.Printf("grfd version: %s\n", versionString)
+		fmt.Printf("Build date: %s\n", buildDate)
+		fmt.Printf("Build commit: %s\n", buildCommit)
+		os.Exit(0)
+	}
 
 	client, err := internal.NewClient(cfg)
 	if err != nil {
